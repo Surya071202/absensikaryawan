@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Absensi Karyawan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .login-form, .attendance-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .login-form input, .attendance-form input, .attendance-form textarea {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .login-form button, .attendance-form button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .login-form button:hover, .attendance-form button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+        .logout-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Sistem Absensi Karyawan</h1>
+
+    <div id="loginForm" class="login-form">
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="attendanceForm" class="attendance-form hidden">
+        <h2>Absensi</h2>
+        <input type="file" id="photo" accept="image/*">
+        <textarea id="complaint" rows="4" placeholder="Kirim Pengaduan (Opsional)"></textarea>
+        <button onclick="submitAttendance()">Submit</button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<script>
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Sederhana: Cek login
+        if (username === 'admin' && password === 'password') {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('attendanceForm').classList.remove('hidden');
+        } else {
+            alert('Username atau Password salah');
+        }
+    }
+
+    function submitAttendance() {
+        const photo = document.getElementById('photo').files[0];
+        const complaint = document.getElementById('complaint').value;
+
+        if (!photo) {
+            alert('Harap unggah foto');
+            return;
+        }
+
+        // Simpan absensi (hanya di console untuk contoh ini)
+        console.log('Foto:', photo);
+        console.log('Pengaduan:', complaint);
+        alert('Absensi berhasil disubmit');
+
+        // Reset form
+        document.getElementById('photo').value = '';
+        document.getElementById('complaint').value = '';
+    }
+
+    function logout() {
+        document.getElementById('attendanceForm').classList.add('hidden');
+        document.getElementById('loginForm').classList.remove('hidden');
+    }
+</script>
+
+</body>
+</html>
